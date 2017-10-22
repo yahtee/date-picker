@@ -1,4 +1,4 @@
-import cyclicNumbers from './cyclic-numbers'
+import {cyclicNumbers} from './cyclic-numbers'
 
 describe(`cyclic-numbers`, () => {
 
@@ -9,7 +9,7 @@ describe(`cyclic-numbers`, () => {
   })
 
   it(`should create cyclic numbers starting from 6`, () => {
-    const actual = cyclicNumbers(1)
+    const actual = cyclicNumbers(6)
     const expected = [6, 0, 1, 2, 3, 4, 5]
     expect(actual).toEqual(expected)
   })

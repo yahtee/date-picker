@@ -1,4 +1,4 @@
-import dateMatrix from './date-matrix'
+import {dateMatrix} from './date-matrix'
 
 describe(`date-matrix`, () => {
 

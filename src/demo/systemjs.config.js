@@ -30,6 +30,7 @@
 
       // other libraries
       'rxjs': 'npm:rxjs',
+      'date-fns': 'npm:date-fns',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -42,6 +43,10 @@
         },
       },
       rxjs: {
+        defaultExtension: 'js',
+      },
+      'date-fns': {
+        main: 'index.js',
         defaultExtension: 'js',
       },
       'yahtee-date-picker': {

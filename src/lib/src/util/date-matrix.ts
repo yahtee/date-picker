@@ -5,7 +5,7 @@ import {addDays, endOfMonth, endOfWeek, isBefore, startOfMonth} from 'date-fns'
 // import * as endOfWeekWithOptions from 'date-fns/fp/endOfWeekWithOptions'
 // import * as addDays from 'date-fns/fp/addDays'
 
-export default (date: Date, weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6) => {
+export const dateMatrix = (date: Date, weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6) => {
   const monthStart = startOfMonth(date)
   const monthEnd = endOfMonth(date)
 
@@ -20,8 +20,7 @@ export default (date: Date, weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6) => {
     }
   }
 
-  const pad = Array.from({length: 7 - month[0].length}).fill(null as any) as any[]
-  month[0].unshift(...pad)
+  month[0].unshift(...Array.from<null>({length: 7 - month[0].length}).fill(null))
 
   return month
 }

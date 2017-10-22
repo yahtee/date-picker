@@ -1,3 +1,1 @@
-import dateMatrix from './date-matrix'
-
-export {dateMatrix}
+export {dateMatrix} from './date-matrix'

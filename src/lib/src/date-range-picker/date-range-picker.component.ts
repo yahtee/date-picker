@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef} from '@angular/core'
-import {isBefore, isSameDay} from 'date-fns/fp'
+import {isBefore, isSameDay} from 'date-fns'
 
 export type YahteeDateRangePickerBrush = 'start' | 'end'
 
@@ -9,6 +9,7 @@ export interface DateRange {
 }
 
 export interface YahteeDateRangePickerContext {
+  $implicit: Date
   date: Date
   isToday: boolean
   isDisabled: boolean
@@ -63,7 +64,7 @@ export class YahteeDateRangePickerComponent {
 
   public getContextFor(date: Date): YahteeDateRangePickerContext {
     const {start, end} = this.dateRange
-    const isSameAs = isSameDay(date)
+    const isSameAs = isSameDay.bind(null, date)
 
     const isToday = isSameAs(new Date())
     const isDisabled = this.disableDates.some(isSameAs) ||
@@ -74,6 +75,7 @@ export class YahteeDateRangePickerComponent {
     const isInsideRange = start != null && end != null && isBefore(start, date) && isBefore(date, end)
 
     return {
+      $implicit: date,
       date,
       isToday,
       isDisabled,
