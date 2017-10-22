@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Input, SimpleChanges, TemplateRef} from '@angular/core'
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, SimpleChanges, TemplateRef} from '@angular/core'
 
 function areShallowlyEqualAssumingSameBooleanKeys(a: object, b: object): boolean {
   return Object.keys(a).every(key => a[key] === b[key])
@@ -14,6 +14,7 @@ export type YahteeCalendarContext<T> = YahteeCalendarImplicitContext & T
 @Component({
   selector: 'yahtee-date',
   template: `
+    <!--<pre>{{ date && date.getDay() }}</pre>-->
     <ng-template [ngTemplateOutlet]="template"
                  [ngTemplateOutletContext]="mergedContext"
     ></ng-template>
@@ -29,19 +30,23 @@ export class YahteeDateComponent {
   @Input() public template: TemplateRef<any>
   @Input() public context: YahteeCalendarContext<any>
 
-  public get mergedContext() {
-    return {
-      ...this.context,
-      $implicit: this.date,
+  public mergedContext: YahteeCalendarContext<any>
+
+  public updateMergedContext() {
+    if (this.mergedContext == null || this.context == null) {
+      this.mergedContext = {
+        $implicit: this.date,
+        ...this.context,
+      }
+    } else {
+      this.mergedContext['$implicit'] = this.date
+      Object.keys(this.context).forEach(key => this.mergedContext[key] = this.context[key])
+      this.cdr.detectChanges()
     }
   }
 
   constructor(private cdr: ChangeDetectorRef) {
     this.cdr.detach()
-  }
-
-  @HostListener('click') test() {
-    console.log('cmoodofasofdiafds')
   }
 
   ngOnInit() {
@@ -53,18 +58,18 @@ export class YahteeDateComponent {
   ngOnChanges(changes: SimpleChanges) {
     if (changes['context']) {
       if (changes['context'].firstChange) {
-        this.cdr.detectChanges()
+        this.updateMergedContext()
       } else if (!areShallowlyEqualAssumingSameBooleanKeys(
           changes['context'].previousValue,
           changes['context'].currentValue,
         )) {
         console.log('cmon', this.date, changes['context'].currentValue)
-        this.cdr.detectChanges()
+        this.updateMergedContext()
       }
     }
 
     if (changes['date']) {
-      this.cdr.detectChanges()
+      this.updateMergedContext()
     }
   }
 
