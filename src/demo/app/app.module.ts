@@ -6,10 +6,12 @@ import {YahteeDatePickerModule} from 'yahtee-date-picker'
 import {DumbCalendarDemo} from './dumb-calendar.component'
 import {DateFnsFormatPipe, DateFnsPrintDayOfWeek, DatePickerDemo} from './date-picker.component'
 import {DateRangePickerDemo} from './date-range-picker.component'
+import {ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       {
         path: '',

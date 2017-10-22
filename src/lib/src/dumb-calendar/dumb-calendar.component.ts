@@ -13,7 +13,7 @@ export type DateContexts = Map<string, { [key: string]: boolean }>
       <tr>
         <th *ngFor="let number of cyclicNumbers; trackBy: index">
           <ng-template [ngTemplateOutlet]="dayOfWeekTemplate"
-                       [ngTemplateOutletContext]="{$implicit: number}"
+                       [ngTemplateOutletContext]="number"
           ></ng-template>
         </th>
       </tr>
@@ -54,14 +54,10 @@ export class YahteeDumbCalendarComponent implements OnInit, OnChanges {
 
   public dateMatrix: (Date | null)[][]
 
-  public updateDateMatrix(): void {
-    console.log('updating date matrix')
-    this.dateMatrix = dateMatrix(this.displayDate, this.weekStartsOn)
-    this.cdr.detectChanges()
-  }
+  public cyclicNumbers: { $implicit: number }[] = []
 
-  public get cyclicNumbers(): number[] {
-    return cyclicNumbers(this.weekStartsOn)
+  public updateDateMatrix(): void {
+    this.dateMatrix = dateMatrix(this.displayDate, this.weekStartsOn)
   }
 
   public onMouseEnter(date: Date | null): void {
@@ -77,7 +73,6 @@ export class YahteeDumbCalendarComponent implements OnInit, OnChanges {
   }
 
   public onClick(date: Date | null): void {
-    console.log('dumb calendar on click', date)
     if (date != null) {
       this.dateClick.emit(date)
     }
@@ -95,9 +90,21 @@ export class YahteeDumbCalendarComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(s: SimpleChanges) {
+    let dc = false
+
     if (s['displayDate'] || s['weekStartsOn'] && this.dayContexts != null) {
       this.updateDateMatrix()
+      dc = true
     } else if (s['dayContexts']) {
+      dc = true
+    }
+
+    if (s['weekStartsOn']) {
+      this.cyclicNumbers = cyclicNumbers(this.weekStartsOn).map(n => ({$implicit: n}))
+      dc = true
+    }
+
+    if (dc) {
       this.cdr.detectChanges()
     }
   }

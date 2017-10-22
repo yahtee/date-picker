@@ -21,6 +21,7 @@ export const dateMatrix = (date: Date, weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6) 
   }
 
   month[0].unshift(...Array.from<null>({length: 7 - month[0].length}).fill(null))
+  month[month.length - 1].push(...Array.from<null>({length: 7 - month[month.length - 1].length}).fill(null))
 
   return month
 }

@@ -1,7 +1,12 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, SimpleChanges, TemplateRef} from '@angular/core'
 
-function areShallowlyEqualAssumingSameBooleanKeys(a: object, b: object): boolean {
-  return Object.keys(a).every(key => a[key] === b[key])
+function areShallowlyEqualAssumingSameBooleanKeys(a: { [key: string]: boolean } | null,
+                                                  b: { [key: string]: boolean } | null): boolean {
+  if (a == null || b == null) {
+    return false
+  } else {
+    return Object.keys(a).every(key => a[key] === b[key])
+  }
 }
 
 export interface YahteeCalendarImplicitContext {
@@ -41,8 +46,8 @@ export class YahteeDateComponent {
     } else {
       this.mergedContext['$implicit'] = this.date
       Object.keys(this.context).forEach(key => this.mergedContext[key] = this.context[key])
-      this.cdr.detectChanges()
     }
+    this.cdr.detectChanges()
   }
 
   constructor(private cdr: ChangeDetectorRef) {
@@ -63,7 +68,6 @@ export class YahteeDateComponent {
           changes['context'].previousValue,
           changes['context'].currentValue,
         )) {
-        console.log('cmon', this.date, changes['context'].currentValue)
         this.updateMergedContext()
       }
     }

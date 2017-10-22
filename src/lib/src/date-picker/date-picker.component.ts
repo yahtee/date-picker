@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef} from '@angular/core'
+import {ChangeDetectionStrategy, Component, Directive, EventEmitter, forwardRef, Input, OnInit, Output, Self, TemplateRef} from '@angular/core'
 import {eachDayOfInterval, endOfMonth, isBefore, isSameDay, startOfMonth} from 'date-fns'
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms'
 
 export interface YahteeDatePickerContext {
   isHighlighted: boolean
@@ -21,7 +22,7 @@ export interface YahteeDatePickerContext {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class YahteeDatePickerComponent implements OnInit, OnChanges {
+export class YahteeDatePickerComponent {
 
   @Input() public date: Date | null = null
   @Output() public dateChange = new EventEmitter<Date>()
@@ -40,7 +41,6 @@ export class YahteeDatePickerComponent implements OnInit, OnChanges {
   public hoveredDate: Date | null = null
 
   public onDateClick(date: Date): void {
-      console.log('click on', date)
     if (!this.isDisabled(date)) {
       this.date = date
       this.dateChange.emit(date)
@@ -48,14 +48,11 @@ export class YahteeDatePickerComponent implements OnInit, OnChanges {
   }
 
   public onDateMouseEnter(date: Date): void {
-    // console.log('mouse enter', date)
     this.hoveredDate = date
-    this.cdr.detectChanges()
   }
 
   public onDateMouseLeave(date: Date): void {
     this.hoveredDate = null
-    this.cdr.detectChanges()
   }
 
   private isDisabled(date: Date): boolean {
@@ -85,22 +82,40 @@ export class YahteeDatePickerComponent implements OnInit, OnChanges {
     return dayContexts
   }
 
-  constructor(private cdr: ChangeDetectorRef) {
-    this.cdr.detach()
-  }
-
-  public ngOnInit(): void {
-    // this.updateDayContexts()
-  }
-
-  public ngOnChanges(s: SimpleChanges): void {
-    this.cdr.detectChanges()
-  }
-
 }
 
 @Directive({
   selector: 'yahtee-date-picker[formControl],yahtee-date-picker[formControlName]',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => YahteeDatePickerControlValueAccessorDirective),
+      multi: true,
+    },
+  ],
 })
-export class YahteeDatePickerControlValueAccessorDirective {
+export class YahteeDatePickerControlValueAccessorDirective implements ControlValueAccessor, OnInit {
+
+  constructor(@Self() private datePickerCmp: YahteeDatePickerComponent) {
+  }
+
+  private onChange = (date: Date): void => {}
+  private onTouched = (date: Date): void => {}
+
+  public writeValue(date: Date): void {
+    this.datePickerCmp.date = date
+  }
+
+  public registerOnChange(fn: any): void {
+    this.onChange = fn
+  }
+
+  public registerOnTouched(fn: any): void {
+    this.onTouched = fn
+  }
+
+  public ngOnInit(): void {
+    this.datePickerCmp.dateChange.subscribe((date: Date) => this.onChange(date))
+  }
+
 }

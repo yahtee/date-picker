@@ -1,5 +1,6 @@
 import {Component, Pipe, PipeTransform} from '@angular/core'
 import {addDays, addMonths, format} from 'date-fns'
+import {FormControl} from '@angular/forms'
 
 @Pipe({name: 'dateFnsFormat'})
 export class DateFnsFormatPipe implements PipeTransform {
@@ -23,12 +24,13 @@ export class DateFnsPrintDayOfWeek implements PipeTransform {
   template: `
     <h1>Date Picker</h1>
 
-    <div>{{ date | dateFnsFormat: 'YYYY-MM-DD' }}</div>
+    <div>{{ control.value  | dateFnsFormat: 'YYYY-MM-DD' }}</div>
 
     <yahtee-date-picker [displayDate]="displayDate"
                         [dateTemplate]="dateTemplate"
                         [dayOfWeekTemplate]="dayOfWeekTemplate"
                         [(date)]="date"
+                        [formControl]="control"
     ></yahtee-date-picker>
 
     <button (click)="prev()">Prev</button>
@@ -75,8 +77,9 @@ export class DateFnsPrintDayOfWeek implements PipeTransform {
   `],
 })
 export class DatePickerDemo {
-  date: Date
+  control = new FormControl(new Date(2017, 9, 1))
   displayDate = new Date()
   next = () => this.displayDate = addMonths(this.displayDate, 1)
   prev = () => this.displayDate = addMonths(this.displayDate, -1)
+
 }
