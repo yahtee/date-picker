@@ -1,0 +1,7 @@
+<div *ngFor="let week of dateMatrix">
+  <div *ngFor="let day of week">
+    <ng-template [ngTemplateOutlet]="dateTemplate"
+                 [ngTemplateOutletContext]="context"
+    ></ng-template>
+  </div>
+</div>
