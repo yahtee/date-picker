@@ -20,7 +20,6 @@ export type DateContexts = Map<string, { [key: string]: boolean }>
       <tr *ngFor="let week of dateMatrix; trackBy: index">
         <td *ngFor="let day of week; trackBy: index"
         >
-          <!--<pre *ngIf="day">{{ dayContexts.get(day.toISOString()).isHighlighted }}</pre>-->
           <yahtee-date [template]="dateTemplate"
                        [date]="day"
                        [context]="dayContexts.get(day && day.toISOString())"

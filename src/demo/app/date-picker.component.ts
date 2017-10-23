@@ -31,6 +31,7 @@ export class DateFnsPrintDayOfWeek implements PipeTransform {
                         [dayOfWeekTemplate]="dayOfWeekTemplate"
                         [(date)]="date"
                         [formControl]="control"
+                        [calendarCount]="2"
     ></yahtee-date-picker>
 
     <button (click)="prev()">Prev</button>

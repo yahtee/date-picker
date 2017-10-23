@@ -4,12 +4,19 @@ import {YahteeDatePickerComponent, YahteeDatePickerControlValueAccessorDirective
 import {YahteeDumbCalendarComponent} from './dumb-calendar/dumb-calendar.component'
 import {CommonModule} from '@angular/common'
 import {YahteeDateComponent} from './date/date.component'
+import {RangePipe} from './pipes/range.pipe'
+import {AddMonthsPipe, NextMonthPipe, TomorrowPipe} from './util/pipes'
 
 @NgModule({
   imports: [
     CommonModule,
   ],
   declarations: [
+    RangePipe,
+    TomorrowPipe,
+    NextMonthPipe,
+    AddMonthsPipe,
+
     YahteeDateComponent,
     YahteeDumbCalendarComponent,
     YahteeDatePickerComponent,

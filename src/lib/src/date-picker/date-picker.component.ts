@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, Directive, EventEmitter, forwardRef, Input, OnInit, Output, Self, TemplateRef} from '@angular/core'
-import {eachDayOfInterval, endOfMonth, isBefore, isSameDay, startOfMonth} from 'date-fns'
+import {addMonths, eachDayOfInterval, endOfMonth, isBefore, isSameDay, startOfMonth} from 'date-fns'
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms'
 
 export interface YahteeDatePickerContext {
@@ -10,7 +10,8 @@ export interface YahteeDatePickerContext {
 @Component({
   selector: 'yahtee-date-picker',
   template: `
-    <yahtee-dumb-calendar [displayDate]="displayDate"
+    <yahtee-dumb-calendar *ngFor="let index of calendarCount | range"
+                          [displayDate]="displayDate | addMonths : index"
                           [dayContexts]="dayContexts"
                           [dateTemplate]="dateTemplate"
                           [dayOfWeekTemplate]="dayOfWeekTemplate"
@@ -20,6 +21,7 @@ export interface YahteeDatePickerContext {
                           (dateMouseEnter)="onDateMouseEnter($event)"
     ></yahtee-dumb-calendar>
   `,
+  styles: [`:host {display: flex}`],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YahteeDatePickerComponent {
@@ -32,6 +34,7 @@ export class YahteeDatePickerComponent {
 
   @Input() public displayDate: Date = new Date()
   @Input() public weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6 = 1
+  @Input() public calendarCount: number = 1
 
   @Input() public disableDates: Date[] = []
   @Input() public disableAllDatesUntil: Date | null = null
@@ -72,8 +75,9 @@ export class YahteeDatePickerComponent {
   }
 
   public get dayContexts() {
+    // TODO: This is run too often
     const dayContexts = new Map<string, YahteeDatePickerContext>()
-    const [start, end] = [startOfMonth(this.displayDate), endOfMonth(this.displayDate)]
+    const [start, end] = [startOfMonth(this.displayDate), endOfMonth(addMonths(this.displayDate, this.calendarCount))]
     eachDayOfInterval({start, end}).forEach(day => {
       const iso = day.toISOString()
       const context = this.getContextFor(day)

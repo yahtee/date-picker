@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, SimpleChanges, TemplateRef} from '@angular/core'
 
-function areShallowlyEqualAssumingSameBooleanKeys(a: { [key: string]: boolean } | null,
-                                                  b: { [key: string]: boolean } | null): boolean {
+function areShallowlyEqualAssumingSameKeys(a: { [key: string]: boolean } | null,
+                                           b: { [key: string]: boolean } | null): boolean {
   if (a == null || b == null) {
     return false
   } else {
@@ -25,7 +25,7 @@ export type YahteeCalendarContext<T> = YahteeCalendarImplicitContext & T
     ></ng-template>
   `,
   host: {
-    'tabindex': '0',
+    '[tabindex]': 'date == null ? -1 : 0',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -64,7 +64,7 @@ export class YahteeDateComponent {
     if (changes['context']) {
       if (changes['context'].firstChange) {
         this.updateMergedContext()
-      } else if (!areShallowlyEqualAssumingSameBooleanKeys(
+      } else if (!areShallowlyEqualAssumingSameKeys(
           changes['context'].previousValue,
           changes['context'].currentValue,
         )) {
