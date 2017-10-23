@@ -24,12 +24,11 @@ export class DateFnsPrintDayOfWeek implements PipeTransform {
   template: `
     <h1>Date Picker</h1>
 
-    <div>{{ control.value  | dateFnsFormat: 'YYYY-MM-DD' }}</div>
+    <div>{{ control.value | dateFnsFormat: 'YYYY-MM-DD' }}</div>
 
     <yahtee-date-picker [displayDate]="displayDate"
                         [dateTemplate]="dateTemplate"
                         [dayOfWeekTemplate]="dayOfWeekTemplate"
-                        [(date)]="date"
                         [formControl]="control"
                         [calendarCount]="2"
     ></yahtee-date-picker>
@@ -44,11 +43,14 @@ export class DateFnsPrintDayOfWeek implements PipeTransform {
     <ng-template #dateTemplate
                  let-date
                  let-isHighlighted="isHighlighted"
-                 let-isSelected="isSelected"
+                 let-isStart="isStart"
+                 let-isEnd="isEnd"
+                 let-isToday="isToday"
     >
       <div class="date"
            [class.is-highlighted]="isHighlighted"
            [class.is-selected]="isSelected"
+           [class.is-today]="isToday"
       >
         {{ date | dateFnsFormat: 'D' }}
       </div>
@@ -73,6 +75,10 @@ export class DateFnsPrintDayOfWeek implements PipeTransform {
     }
 
     .is-selected {
+      background-color: tomato;
+    }
+
+    .is-today {
       font-weight: bold;
     }
   `],

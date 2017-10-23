@@ -5,23 +5,27 @@ import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms'
 export interface YahteeDatePickerContext {
   isHighlighted: boolean
   isSelected: boolean
+  isToday: boolean
+  isDisabled: boolean
 }
 
 @Component({
   selector: 'yahtee-date-picker',
   template: `
     <yahtee-dumb-calendar *ngFor="let index of calendarCount | range"
-                          [displayDate]="displayDate | addMonths : index"
-                          [dayContexts]="dayContexts"
                           [dateTemplate]="dateTemplate"
                           [dayOfWeekTemplate]="dayOfWeekTemplate"
+                          [dayContexts]="dayContexts"
+                          [displayDate]="displayDate | addMonths : index"
                           [weekStartsOn]="weekStartsOn"
                           (dateClick)="onDateClick($event)"
                           (dateMouseLeave)="onDateMouseLeave($event)"
                           (dateMouseEnter)="onDateMouseEnter($event)"
     ></yahtee-dumb-calendar>
   `,
-  styles: [`:host {display: flex}`],
+  styles: [`:host {
+    display: flex
+  }`],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class YahteeDatePickerComponent {
@@ -58,7 +62,7 @@ export class YahteeDatePickerComponent {
     this.hoveredDate = null
   }
 
-  private isDisabled(date: Date): boolean {
+  public isDisabled(date: Date): boolean {
     return this.disableDates.some(disabledDate => isSameDay(disabledDate, date)) ||
       (!!this.disableAllDatesUntil && isBefore(date, this.disableAllDatesUntil)) ||
       (!!this.disableAllDatesFrom && isBefore(this.disableAllDatesFrom, date))
@@ -67,10 +71,14 @@ export class YahteeDatePickerComponent {
   private getContextFor(date: Date): YahteeDatePickerContext {
     const isHighlighted = !!this.hoveredDate && isSameDay(date, this.hoveredDate)
     const isSelected = !!this.date && isSameDay(date, this.date)
+    const isToday = !!this.date && isSameDay(date, Date.now())
+    const isDisabled = !!this.date && this.isDisabled(date)
 
     return {
       isHighlighted,
       isSelected,
+      isToday,
+      isDisabled,
     }
   }
 
