@@ -18,6 +18,7 @@ export interface YahteeDatePickerContext {
                           [dayContexts]="dayContexts"
                           [displayDate]="displayDate | addMonths : index"
                           [weekStartsOn]="weekStartsOn"
+                          [disableOutline]="disableOutline"
                           (dateClick)="onDateClick($event)"
                           (dateMouseLeave)="onDateMouseLeave($event)"
                           (dateMouseEnter)="onDateMouseEnter($event)"
@@ -44,6 +45,8 @@ export class YahteeDatePickerComponent {
   @Input() public disableAllDatesUntil: Date | null = null
   @Input() public disableAllDatesFrom: Date | null = null
   @Input() public allowSelectingDisabledDates: boolean = false
+
+  @Input() public disableOutline: boolean
 
   public hoveredDate: Date | null = null
 

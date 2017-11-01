@@ -5,6 +5,7 @@ import {Component} from '@angular/core';
     <yahtee-date-range-picker [dateTemplate]="dateTemplate"
                               [dayOfWeekTemplate]="dayOfWeekTemplate"
                               [calendarCount]="3"
+                              [disableOutline]="true"
                               #yahtee="yahtee"
     ></yahtee-date-range-picker>
 

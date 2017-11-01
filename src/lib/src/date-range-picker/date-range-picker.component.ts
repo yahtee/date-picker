@@ -98,6 +98,7 @@ const ALTERNATING_START_STRATEGY: DateRangePickerStrategy = {
                           [dayContexts]="dayContexts"
                           [displayDate]="displayDate | addMonths : index"
                           [weekStartsOn]="weekStartsOn"
+                          [disableOutline]="disableOutline"
                           (dateClick)="onDateClick($event)"
                           (dateMouseEnter)="onDateMouseEnter($event)"
                           (dateMouseLeave)="onDateMouseLeave($event)"
@@ -128,6 +129,8 @@ export class YahteeDateRangePickerComponent implements OnInit {
   @Input() public disableAllDatesUntil: Date | null = null
   @Input() public disableAllDatesFrom: Date | null = null
   @Input() public allowEnclosingDisabledDates: boolean = false
+
+  @Input() public disableOutline: boolean
 
   public highlightedDate: Date | null
   public potentialRange: DateRange = {start: null, end: null}

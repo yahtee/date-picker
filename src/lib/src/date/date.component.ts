@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, SimpleChanges, TemplateRef} from '@angular/core'
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, SimpleChanges, TemplateRef} from '@angular/core'
 
 function areShallowlyEqualAssumingSameKeys(a: { [key: string]: boolean } | null,
                                            b: { [key: string]: boolean } | null): boolean {
@@ -19,11 +19,15 @@ export type YahteeCalendarContext<T> = YahteeCalendarImplicitContext & T
 @Component({
   selector: 'yahtee-date',
   template: `
-    <!--<pre>{{ date && date.getDay() }}</pre>-->
     <ng-template [ngTemplateOutlet]="template"
                  [ngTemplateOutletContext]="mergedContext"
     ></ng-template>
   `,
+  styles: [`
+    :host.disable-outline {
+      outline: none;
+    }
+  `],
   host: {
     '[tabindex]': 'date == null ? -1 : 0',
   },
@@ -34,6 +38,7 @@ export class YahteeDateComponent {
   @Input() public date: Date
   @Input() public template: TemplateRef<any>
   @Input() public context: YahteeCalendarContext<any>
+  @Input() @HostBinding('class.disable-outline') public disableOutline: boolean = false
 
   public mergedContext: YahteeCalendarContext<any>
 

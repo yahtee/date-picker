@@ -23,6 +23,7 @@ export type DateContexts = Map<string, { [key: string]: boolean }>
           <yahtee-date [template]="dateTemplate"
                        [date]="day"
                        [context]="dayContexts.get(day && day.toISOString())"
+                       [disableOutline]="disableOutline"
                        (click)="onClick(day)"
                        (keyup.enter)="onClick(day)"
                        (focus)="onMouseEnter(day)"
@@ -46,6 +47,8 @@ export class YahteeDumbCalendarComponent implements OnInit, OnChanges {
 
   @Input() public weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6 = 1
   @Input() public displayDate: Date = new Date()
+
+  @Input() public disableOutline: boolean
 
   @Output() public dateMouseEnter = new EventEmitter<Date>()
   @Output() public dateMouseLeave = new EventEmitter<Date | null>()
