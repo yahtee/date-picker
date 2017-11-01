@@ -1,4 +1,4 @@
-import {Component} from '@angular/core'
+import {Component} from '@angular/core';
 
 @Component({
   template: `
@@ -17,8 +17,8 @@ import {Component} from '@angular/core'
     <button (click)="yahtee.context.brush = 'start'">Pick start</button>
     <button (click)="yahtee.context.brush = 'end'">Pick end</button>
 
-    <ng-template #dayOfWeekTemplate let-number>
-      {{ number | printDayOfWeek: 'dd' }}
+    <ng-template #dayOfWeekTemplate let-day>
+      {{ day | date: 'EEE' }}
     </ng-template>
 
     <ng-template #dateTemplate
@@ -31,8 +31,11 @@ import {Component} from '@angular/core'
                  let-isInsideRange="isInsideRange"
                  let-isOutsideRange="isOutsideRange"
                  let-isInsidePotentialRange="isInsidePotentialRange"
+                 let-isDisabled="isDisabled"
+                 let-isEnabled="isEnabled"
     >
       <div class="date"
+           [class.is-not-null]="date != null"
            [class.is-highlighted]="isHighlighted"
            [class.is-selected]="isSelected"
            [class.is-today]="isToday"
@@ -41,6 +44,8 @@ import {Component} from '@angular/core'
            [class.is-inside-range]="isInsideRange"
            [class.is-outside-range]="isOutsideRange"
            [class.is-inside-potential-range]="isInsidePotentialRange"
+           [class.is-disabled]="isDisabled"
+           [class.is-enabled]="isEnabled"
       >
         {{ date | dateFnsFormat: 'D' }}
       </div>

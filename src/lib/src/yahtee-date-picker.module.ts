@@ -5,7 +5,7 @@ import {YahteeDumbCalendarComponent} from './dumb-calendar/dumb-calendar.compone
 import {CommonModule} from '@angular/common'
 import {YahteeDateComponent} from './date/date.component'
 import {RangePipe} from './pipes/range.pipe'
-import {AddMonthsPipe, NextMonthPipe, TomorrowPipe} from './util/pipes'
+import {AddMonthsPipe, FirstWeekPipe, NextMonthPipe, TomorrowPipe} from './util/pipes'
 
 @NgModule({
   imports: [
@@ -16,6 +16,7 @@ import {AddMonthsPipe, NextMonthPipe, TomorrowPipe} from './util/pipes'
     TomorrowPipe,
     NextMonthPipe,
     AddMonthsPipe,
+    FirstWeekPipe,
 
     YahteeDateComponent,
     YahteeDumbCalendarComponent,

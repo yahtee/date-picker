@@ -1,5 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core'
 import {addDays, addMonths} from 'date-fns'
+import {firstWeek} from './first-week'
 
 @Pipe({name: 'tomorrow'})
 export class TomorrowPipe implements PipeTransform {
@@ -30,6 +31,17 @@ export class AddMonthsPipe implements PipeTransform {
       return null
     } else {
       return addMonths(date, number || 0)
+    }
+  }
+}
+
+@Pipe({name: 'firstWeek'})
+export class FirstWeekPipe implements PipeTransform {
+  public transform(matrix: Date[][]): Date[] | null {
+    if (matrix == null) {
+      return null
+    } else {
+      return firstWeek(matrix).map(day => ({$implicit: day}))
     }
   }
 }

@@ -4,7 +4,7 @@ import {AppComponent} from './app.component'
 import {RouterModule} from '@angular/router'
 import {YahteeDatePickerModule} from 'yahtee-date-picker'
 import {DumbCalendarDemo} from './dumb-calendar.component'
-import {DateFnsFormatPipe, DateFnsPrintDayOfWeek, DatePickerDemo} from './date-picker.component'
+import {DateFnsFormatPipe, DatePickerDemo} from './date-picker.component'
 import {DateRangePickerDemo} from './date-range-picker.component'
 import {ReactiveFormsModule} from '@angular/forms'
 
@@ -44,7 +44,6 @@ import {ReactiveFormsModule} from '@angular/forms'
     DatePickerDemo,
     DateRangePickerDemo,
     DateFnsFormatPipe,
-    DateFnsPrintDayOfWeek,
   ],
   bootstrap: [
     AppComponent,

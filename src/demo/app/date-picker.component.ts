@@ -12,14 +12,6 @@ export class DateFnsFormatPipe implements PipeTransform {
   }
 }
 
-@Pipe({name: 'printDayOfWeek'})
-export class DateFnsPrintDayOfWeek implements PipeTransform {
-  public transform(number: 0 | 1 | 2 | 3 | 4 | 5 | 6, formatString: string): string {
-    const anArbitrarySunday = new Date(2017, 9, 22)
-    return format(addDays(anArbitrarySunday, number), formatString)
-  }
-}
-
 @Component({
   template: `
     <h1>Date Picker</h1>
@@ -36,8 +28,8 @@ export class DateFnsPrintDayOfWeek implements PipeTransform {
     <button (click)="prev()">Prev</button>
     <button (click)="next()">Next</button>
 
-    <ng-template #dayOfWeekTemplate let-number>
-      {{ number | printDayOfWeek: 'dd' }}
+    <ng-template #dayOfWeekTemplate let-date>
+      {{ date | dateFnsFormat: 'dd' }}
     </ng-template>
 
     <ng-template #dateTemplate

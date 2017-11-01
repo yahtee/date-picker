@@ -11,9 +11,9 @@ export type DateContexts = Map<string, { [key: string]: boolean }>
 
     <table cellspacing="0" cellpadding="0">
       <tr>
-        <th *ngFor="let number of cyclicNumbers; trackBy: index">
+        <th *ngFor="let dayOfWeek of dateMatrix | firstWeek; trackBy: index">
           <ng-template [ngTemplateOutlet]="dayOfWeekTemplate"
-                       [ngTemplateOutletContext]="number"
+                       [ngTemplateOutletContext]="dayOfWeek"
           ></ng-template>
         </th>
       </tr>

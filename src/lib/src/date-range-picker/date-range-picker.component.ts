@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core'
-import {addMonths, eachDayOfInterval, endOfMonth, isBefore, isSameDay, startOfMonth} from 'date-fns'
+import {addMonths, eachDayOfInterval, endOfMonth, isBefore, isSameDay, startOfMonth, getDay, startOfMonth, endOfMonth, isSameWeek} from 'date-fns'
 
 export interface DateRange {
   start: Date | null,
@@ -16,6 +16,10 @@ export interface YahteeDateRangePickerContext {
   isOutsideRange: boolean
   isHighlighted: boolean
   isInsidePotentialRange: boolean
+  isFirstRow: boolean
+  isLastRow: boolean
+  isFirstColumn: boolean
+  isLastColumn: boolean
 }
 
 export interface DateRangePickerStrategy {
@@ -173,6 +177,13 @@ export class YahteeDateRangePickerComponent implements OnInit {
     const isHighlighted = !!this.highlightedDate && isSameAs(this.highlightedDate)
     const isInsidePotentialRange = this.isInsidePotentialRangeInclusive(date)
 
+    const weekNumber = getDay(date)
+
+    const isFirstColumn = weekNumber == this.weekStartsOn
+    const isLastColumn = weekNnumber == (weekStartsOn + 6) % 7
+    const isFirstRow = isSameWeek(startOfMonth(date), date)
+    const isLastRow = isSameWeek(endOfMonth(date), date)
+
     return {
       isToday,
       isDisabled,
@@ -183,6 +194,10 @@ export class YahteeDateRangePickerComponent implements OnInit {
       isOutsideRange: !isInsideRange,
       isHighlighted,
       isInsidePotentialRange,
+      isFirstRow,
+      isLastRow,
+      isFirstColumn,
+      isLastColumn,
     }
   }
 

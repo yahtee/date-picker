@@ -57,7 +57,8 @@
     ],
     "radix": true,
     "semicolon": [
-      "always"
+      true,
+      "never"
     ],
     "triple-equals": false,
     "typedef-whitespace": [
