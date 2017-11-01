@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core'
-import {addMonths, eachDayOfInterval, endOfMonth, isBefore, isSameDay, startOfMonth, getDay, startOfMonth, endOfMonth, isSameWeek} from 'date-fns'
+import {addMonths, eachDayOfInterval, endOfMonth, isBefore, isSameDay, startOfMonth, getDay, isSameWeek} from 'date-fns'
 
 export interface DateRange {
   start: Date | null,
@@ -180,9 +180,9 @@ export class YahteeDateRangePickerComponent implements OnInit {
     const weekNumber = getDay(date)
 
     const isFirstColumn = weekNumber == this.weekStartsOn
-    const isLastColumn = weekNnumber == (weekStartsOn + 6) % 7
-    const isFirstRow = isSameWeek(startOfMonth(date), date)
-    const isLastRow = isSameWeek(endOfMonth(date), date)
+    const isLastColumn = weekNumber == (this.weekStartsOn + 6) % 7
+    const isFirstRow = isSameWeek(startOfMonth(date), date, {weekStartsOn: this.weekStartsOn})
+    const isLastRow = isSameWeek(endOfMonth(date), date, {weekStartsOn: this.weekStartsOn})
 
     return {
       isToday,
