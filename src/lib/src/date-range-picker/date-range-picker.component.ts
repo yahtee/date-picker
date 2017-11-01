@@ -139,6 +139,7 @@ export class YahteeDateRangePickerComponent implements OnInit {
 
   public onDateClick(date: Date): void {
     this.strategy.select.call(this, date)
+    this.dateRangeChange.emit({start: this.dateStart, end: this.dateEnd})
   }
 
   public onDateMouseEnter(date: Date): void {
