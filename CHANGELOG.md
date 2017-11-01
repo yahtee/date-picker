@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/lazarljubenovic/yahtee-date-picker/compare/v0.2.1...v0.3.0) (2017-11-01)
+
+
+### Features
+
+* support disabling native outline for focusable cells ([837bed7](https://github.com/lazarljubenovic/yahtee-date-picker/commit/837bed7))
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/lazarljubenovic/yahtee-date-picker/compare/v0.2.0...v0.2.1) (2017-11-01)
 
