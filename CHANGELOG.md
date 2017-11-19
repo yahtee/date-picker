@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.4.3"></a>
+## [0.4.3](https://github.com/lazarljubenovic/yahtee-date-picker/compare/v0.4.0...v0.4.3) (2017-11-19)
+
+
+### Bug Fixes
+
+* remove trackby index ([1c6f20e](https://github.com/lazarljubenovic/yahtee-date-picker/commit/1c6f20e))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/lazarljubenovic/yahtee-date-picker/compare/v0.3.1...v0.4.0) (2017-11-02)
 
