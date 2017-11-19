@@ -11,14 +11,14 @@ export type DateContexts = Map<string, { [key: string]: boolean }>
 
     <table cellspacing="0" cellpadding="0">
       <tr>
-        <th *ngFor="let dayOfWeek of dateMatrix | firstWeek; trackBy: index">
+        <th *ngFor="let dayOfWeek of dateMatrix | firstWeek">
           <ng-template [ngTemplateOutlet]="dayOfWeekTemplate"
                        [ngTemplateOutletContext]="dayOfWeek"
           ></ng-template>
         </th>
       </tr>
-      <tr *ngFor="let week of dateMatrix; trackBy: index">
-        <td *ngFor="let day of week; trackBy: index"
+      <tr *ngFor="let week of dateMatrix">
+        <td *ngFor="let day of week"
         >
           <yahtee-date [template]="dateTemplate"
                        [date]="day"

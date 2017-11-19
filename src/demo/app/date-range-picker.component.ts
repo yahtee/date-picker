@@ -1,9 +1,14 @@
-import {Component} from '@angular/core';
+import {Component} from '@angular/core'
+import {addMonths} from 'date-fns'
 
 @Component({
   template: `
+    <button (click)="prev()">prev month</button>
+    <button (click)="next()">next month</button>
+
     <yahtee-date-range-picker [dateTemplate]="dateTemplate"
                               [dayOfWeekTemplate]="dayOfWeekTemplate"
+                              [displayDate]="displayDate"
                               [calendarCount]="3"
                               [disableOutline]="true"
                               #yahtee="yahtee"
@@ -88,4 +93,13 @@ import {Component} from '@angular/core';
   `],
 })
 export class DateRangePickerDemo {
+  displayDate = new Date()
+
+  prev() {
+    this.displayDate = addMonths(this.displayDate, -1)
+  }
+
+  next() {
+    this.displayDate = addMonths(this.displayDate, 1)
+  }
 }
