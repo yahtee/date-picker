@@ -37,7 +37,7 @@ export class AddMonthsPipe implements PipeTransform {
 
 @Pipe({name: 'firstWeek'})
 export class FirstWeekPipe implements PipeTransform {
-  public transform(matrix: Date[][]): {$implicit: Date}[] | null {
+  public transform(matrix: (Date | null)[][]): {$implicit: Date}[] | null {
     if (matrix == null) {
       return null
     } else {
