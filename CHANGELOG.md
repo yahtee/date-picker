@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/lazarljubenovic/yahtee-date-picker/compare/v0.4.3...v0.5.0) (2020-07-02)
+
+
+### Bug Fixes
+
+* type ([d14283d](https://github.com/lazarljubenovic/yahtee-date-picker/commit/d14283d))
+
+
+### Features
+
+* support past and future for multiple calenders ([69e4855](https://github.com/lazarljubenovic/yahtee-date-picker/commit/69e4855))
+
+
+
 <a name="0.4.3"></a>
 ## [0.4.3](https://github.com/lazarljubenovic/yahtee-date-picker/compare/v0.4.0...v0.4.3) (2017-11-19)
 
