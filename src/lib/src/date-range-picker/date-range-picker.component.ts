@@ -96,7 +96,7 @@ const ALTERNATING_START_STRATEGY: DateRangePickerStrategy = {
                           [dateTemplate]="dateTemplate"
                           [dayOfWeekTemplate]="dayOfWeekTemplate"
                           [dayContexts]="dayContexts"
-                          [displayDate]="displayDate | addMonths : index"
+                          [displayDate]="displayDate | addMonths : (index * (multipleCalendersDirection == 'past' ? -1 : +1))"
                           [weekStartsOn]="weekStartsOn"
                           [disableOutline]="disableOutline"
                           (dateClick)="onDateClick($event)"
@@ -124,6 +124,7 @@ export class YahteeDateRangePickerComponent implements OnInit {
   @Input() public displayDate: Date = new Date()
   @Input() public weekStartsOn: 0 | 1 | 2 | 3 | 4 | 5 | 6 = 1
   @Input() public calendarCount: number = 1
+  @Input() public multipleCalendersDirection: 'past' | 'future' = 'past'
 
   @Input() public disableDates: Date[] = []
   @Input() public disableAllDatesUntil: Date | null = null

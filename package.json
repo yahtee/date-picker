@@ -1,6 +1,6 @@
 {
   "name": "yahtee-date-picker",
-  "version": "0.4.3",
+  "version": "0.4.5",
   "description": "A util Angular module for handling displaying error messages in forms.",
   "main": "./bundles/yahtee-date-picker.umd.js",
   "module": "./yahtee-date-picker.es5.js",
